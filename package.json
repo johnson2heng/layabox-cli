@@ -38,6 +38,8 @@
         "@babel/preset-env": "^7.5.5",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.6.0",
+        "@babel/polyfill": "^7.8.7",
+        "@babel/runtime": "^7.9.2",
         "@types/node": "^13.9.2",
         "autoprefixer": "^9.6.1",
         "babel-loader": "^8.0.6",
@@ -56,10 +58,5 @@
         "webpack-cli": "^3.3.11",
         "webpack-dev-server": "^2.11.5"
     },
-    "dependencies": {
-        "@babel/polyfill": "^7.8.7",
-        "@babel/runtime": "^7.9.2",
-        "dexie": "^3.0.1",
-        "three": "^0.117.1"
-    }
+    "dependencies": {}
 }
