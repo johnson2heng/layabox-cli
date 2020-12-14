@@ -1,15 +1,15 @@
-import { Laya } from "./layabox/Laya";
-import { Sprite } from "./layabox/laya/display/Sprite";
-import { Stage } from "./layabox/laya/display/Stage";
-import { Browser } from "./layabox/laya/utils/Browser";
-import { WebGL } from "./layabox/laya/webgl/WebGL";
+import { Laya } from "./libs/Laya";
+import { Sprite } from "./libs/laya/display/Sprite";
+import { Stage } from "./libs/laya/display/Stage";
+import { Browser } from "./libs/laya/utils/Browser";
+import { Laya3D } from "./libs/Laya3D";
 
 export class Sprite_DrawShapes {
     private sp: Sprite;
 
     constructor() {
         // 不支持WebGL时自动切换至Canvas
-        Laya.init(Browser.clientWidth, Browser.clientHeight, WebGL);
+        Laya3D.init(Browser.clientWidth, Browser.clientHeight);
 
         Laya.stage.alignV = Stage.ALIGN_MIDDLE;
         Laya.stage.alignH = Stage.ALIGN_CENTER;
