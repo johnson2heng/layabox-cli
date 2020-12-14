@@ -1,27 +1,55 @@
-import { Laya } from "./libs/Laya";
-import { Sprite } from "./libs/laya/display/Sprite";
-import { Stage } from "./libs/laya/display/Stage";
-import { Browser } from "./libs/laya/utils/Browser";
-import { Laya3D } from "./libs/Laya3D";
-
 export class Sprite_DrawShapes {
-    private sp: Sprite;
+    private sp: Laya.Sprite;
+    private skin: string = "images/combobox.png";
 
     constructor() {
         // 不支持WebGL时自动切换至Canvas
-        Laya3D.init(Browser.clientWidth, Browser.clientHeight);
+        Laya3D.init(Laya.Browser.clientWidth, Laya.Browser.clientHeight);
 
-        Laya.stage.alignV = Stage.ALIGN_MIDDLE;
-        Laya.stage.alignH = Stage.ALIGN_CENTER;
+        Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
+        Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
 
         Laya.stage.scaleMode = "showall";
         Laya.stage.bgColor = "#232628";
 
         this.drawSomething();
+        Laya.loader.load(this.skin, Laya.Handler.create(this, this.drawCombobox));
+    }
+
+    private onLoadComplete(): void {
+        var cb: Laya.ComboBox = this.createComboBox(this.skin);
+        cb.autoSize = true;
+        cb.pos((Laya.stage.width - cb.width) / 2, 100);
+        cb.autoSize = false;
+    }
+
+    private createComboBox(skin: String): Laya.ComboBox {
+        var comboBox: Laya.ComboBox = new Laya.ComboBox(this.skin, "item0,item1,item2,item3,item4,item5");
+        comboBox.labelSize = 30;
+        comboBox.itemSize = 25;
+        comboBox.selectHandler = new Laya.Handler(this, this.onSelect, [comboBox]);
+        Laya.stage.addChild(comboBox);
+
+        return comboBox;
+    }
+
+    private onSelect(cb: Laya.ComboBox): void {
+        console.log("选中了： " + cb.selectedLabel);
+    }
+
+    private drawCombobox() {
+        Laya.loader.load(
+            "images/combobox.png",
+            Laya.Handler.create(this, function () {
+                let comboBox = new Laya.ComboBox("images/combobox.png", "item0,item1,item2,item3,item4,item5");
+                comboBox.pos((Laya.stage.width - comboBox.width) / 2, 100);
+                Laya.stage.addChild(comboBox);
+            })
+        );
     }
 
     private drawSomething(): void {
-        this.sp = new Sprite();
+        this.sp = new Laya.Sprite();
         Laya.stage.addChild(this.sp);
         //画线
         this.sp.graphics.drawLine(10, 58, 146, 58, "#ff0000", 3);
